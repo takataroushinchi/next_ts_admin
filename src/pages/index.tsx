@@ -1,3 +1,4 @@
+import { Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
@@ -10,15 +11,17 @@ type Props = MicroCMSListResponse<Post>;
 
 const Home: NextPage<Props> = (props) => {
   const [search, setSearch] = useState<MicroCMSListResponse<Post>>();
+  const [excludeDone, setExcludeDone] = useState(false);
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
     const q = event.currentTarget.query.value;
+    const filters = excludeDone ? 'done[equals]false' : '';
 
     const data = await fetch('/api/search', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ q }),
+      body: JSON.stringify({ q, filters }),
     });
     const json: MicroCMSListResponse<Post> = await data.json();
     setSearch(json);
@@ -26,6 +29,7 @@ const Home: NextPage<Props> = (props) => {
 
   const handleClick: ComponentProps<'button'>['onClick'] = () => {
     setSearch(undefined);
+    setExcludeDone(false);
   };
 
   const contents = search ? search.contents : props.contents;
@@ -49,6 +53,11 @@ const Home: NextPage<Props> = (props) => {
         >
           リセット
         </button>
+        <Switch
+          label="完了を除く"
+          checked={excludeDone}
+          onChange={(event) => setExcludeDone(event.currentTarget.checked)}
+        />
       </form>
       <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
@@ -60,9 +69,14 @@ const Home: NextPage<Props> = (props) => {
                   <p className="text-sm font-semibold text-slate-900 group-hover:text-white">
                     {content.title}
                   </p>
-                  <span className="text-sm text-slate-500 group-hover:text-white">
+                  <p className="text-sm text-slate-500 group-hover:text-white">
                     {content.caption}
-                  </span>
+                  </p>
+                  {content.done && (
+                    <p className="text-sm font-semibold text-slate-500 group-hover:text-white">
+                      完了
+                    </p>
+                  )}
                 </a>
               </Link>
             </li>

@@ -13,6 +13,9 @@ const PostId: NextPage<Props> = (props) => {
       <time dateTime={props.publishedAt}>
         {dayjs(props.publishedAt).format('YYYY年MM月DD日')}
       </time>
+      {props.done && (
+        <p className="text-sm font-semibold text-slate-500">完了</p>
+      )}
       <div
         className="prose lg:prose-sm"
         dangerouslySetInnerHTML={{ __html: props.body }}

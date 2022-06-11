@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log(req.body.q);
   const data = await client.getList<Post>({
     endpoint: 'post',
-    queries: { q: req.body.q },
+    queries: { q: req.body.q, filters: req.body.filters },
   });
 
   // console.log(data);
