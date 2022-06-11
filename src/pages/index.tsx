@@ -4,16 +4,12 @@ import Link from 'next/link';
 import { ComponentProps, useState } from 'react';
 import { client } from 'src/lib/client';
 import { Button } from 'src/lib/mantine';
+import { Post } from 'src/types/post';
 
-export type Blog = {
-  title: string;
-  body: string;
-};
-
-type Props = MicroCMSListResponse<Blog>;
+type Props = MicroCMSListResponse<Post>;
 
 const Home: NextPage<Props> = (props) => {
-  const [search, setSearch] = useState<MicroCMSListResponse<Blog>>();
+  const [search, setSearch] = useState<MicroCMSListResponse<Post>>();
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
@@ -24,7 +20,7 @@ const Home: NextPage<Props> = (props) => {
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ q }),
     });
-    const json: MicroCMSListResponse<Blog> = await data.json();
+    const json: MicroCMSListResponse<Post> = await data.json();
     setSearch(json);
   };
 
@@ -59,9 +55,14 @@ const Home: NextPage<Props> = (props) => {
         {contents.map((content) => {
           return (
             <li key={content.id}>
-              <Link href={`/blog/${content.id}`}>
-                <a className="text-xl text-blue-800 underline hover:text-blue-400">
-                  {content.title}
+              <Link href={`/post/${content.id}`}>
+                <a className="group mx-auto block space-y-3 rounded-lg bg-white p-6 shadow-lg ring-1 ring-slate-900/5 hover:bg-sky-700 hover:ring-sky-500">
+                  <p className="text-sm font-semibold text-slate-900 group-hover:text-white">
+                    {content.title}
+                  </p>
+                  <span className="text-sm text-slate-500 group-hover:text-white">
+                    {content.caption}
+                  </span>
                 </a>
               </Link>
             </li>
@@ -73,7 +74,7 @@ const Home: NextPage<Props> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await client.getList<Blog>({ endpoint: 'blog' });
+  const data = await client.getList<Post>({ endpoint: 'post' });
   // .then((res) => console.log(res))
   // .catch((err) => console.log(err));
 

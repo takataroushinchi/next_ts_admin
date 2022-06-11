@@ -10,13 +10,15 @@ function MyApp({ Component, pageProps }: AppProps) {
       withNormalizeCSS
       emotionOptions={{ key: 'mantine', prepend: false }}
     >
-      <div className="mx-auto max-w-prose">
-        <header>
-          <Link href="/">
-            <a className="py-8 text-xl font-bold">タイトル</a>
-          </Link>
+      <div className="mx-auto max-w-full px-8">
+        <header className="flex flex-wrap items-center justify-between bg-sky-900 p-6">
+          <div className="mr-6 flex flex-shrink-0 items-center text-white">
+            <Link href="/">
+              <a className="py-8 text-xl font-bold">デザイン管理画面</a>
+            </Link>
+          </div>
         </header>
-        <main className="mt-8 text-gray-600">
+        <main className="mt-8 max-w-prose">
           <Component {...pageProps} />
         </main>
       </div>
