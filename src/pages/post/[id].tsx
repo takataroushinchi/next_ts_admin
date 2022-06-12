@@ -26,67 +26,43 @@ const PostId: NextPage<Props> = (props) => {
         {props.topic?.map((topic, id) => (
           <div key={id}>
             {topic.fieldId === 'tech' && (
-              <div>
-                <h3>{topic.title}</h3>
-                <div>
-                  {topic.body.map((body, index) => {
-                    return body.fieldId === 'richeditor' ? (
-                      <div
-                        key={index}
-                        className="prose lg:prose-sm"
-                        dangerouslySetInnerHTML={{ __html: body.richText }}
-                      />
-                    ) : body.fieldId === 'markdown' ? (
-                      <div key={index} className="border p-8">
-                        <MarkdownField text={body.markdownText} />
-                      </div>
-                    ) : body.fieldId === 'richlink' ? (
-                      <div key={index}>
-                        {body.title && <a href={body.url}>{body.title}</a>}
-                        {body.image && (
-                          <MicroCMSImage
-                            src={body.image.url}
-                            width={body.image.width}
-                            height={body.image.height}
-                          />
-                        )}
-                      </div>
-                    ) : null;
-                  })}
-                </div>
+              <div className="flex flex-wrap items-center justify-between bg-indigo-900 p-6">
+                <h3 className="mr-6 flex-shrink-0 text-white">技術</h3>
+                <p className="mr-6 flex-shrink-0 text-white">{topic.title}</p>
               </div>
             )}
             {topic.fieldId === 'note' && (
-              <div>
-                <h3>{topic.title}</h3>
-                <div>
-                  {topic.body.map((body, index) => {
-                    return body.fieldId === 'richeditor' ? (
-                      <div
-                        key={index}
-                        className="prose lg:prose-sm"
-                        dangerouslySetInnerHTML={{ __html: body.richText }}
-                      />
-                    ) : body.fieldId === 'markdown' ? (
-                      <div key={index} className="border p-8">
-                        <MarkdownField text={body.markdownText} />
-                      </div>
-                    ) : body.fieldId === 'richlink' ? (
-                      <div key={index}>
-                        {body.title && <a href={body.url}>{body.title}</a>}
-                        {body.image && (
-                          <MicroCMSImage
-                            src={body.image.url}
-                            width={body.image.width}
-                            height={body.image.height}
-                          />
-                        )}
-                      </div>
-                    ) : null;
-                  })}
-                </div>
+              <div className="flex flex-wrap items-center justify-between bg-lime-900 p-6">
+                <h3 className="mr-6 flex-shrink-0 text-white">備考</h3>
+                <p className="mr-6 flex-shrink-0 text-white">{topic.title}</p>
               </div>
             )}
+            <div>
+              {topic.body.map((body, index) => {
+                return body.fieldId === 'richeditor' ? (
+                  <div
+                    key={index}
+                    className="prose lg:prose-sm"
+                    dangerouslySetInnerHTML={{ __html: body.richText }}
+                  />
+                ) : body.fieldId === 'markdown' ? (
+                  <div key={index} className="border p-8">
+                    <MarkdownField text={body.markdownText} />
+                  </div>
+                ) : body.fieldId === 'richlink' ? (
+                  <div key={index}>
+                    {body.title && <a href={body.url}>{body.title}</a>}
+                    {body.image && (
+                      <MicroCMSImage
+                        src={body.image.url}
+                        width={body.image.width}
+                        height={body.image.height}
+                      />
+                    )}
+                  </div>
+                ) : null;
+              })}
+            </div>
           </div>
         ))}
       </div>
