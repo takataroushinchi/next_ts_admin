@@ -2,4 +2,8 @@
 module.exports = {
   swcMinify: true,
   reactStrictMode: true,
+  images: {
+    loader: 'imgix',
+    path: '',
+  },
 };
