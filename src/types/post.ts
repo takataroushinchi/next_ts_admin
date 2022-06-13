@@ -30,3 +30,7 @@ export type Post = {
   topic: Topic[];
   createAt: string;
 };
+
+export type Posts = {
+  contents: Post[];
+};

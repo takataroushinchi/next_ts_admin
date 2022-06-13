@@ -21,7 +21,7 @@ const Home: NextPage<Props> = (props) => {
     }
   });
   targets.sort().reverse().unshift('-');
-  const _targets = Array.from(new Set(targets));
+  // const _targets = Array.from(new Set(targets));
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
@@ -83,7 +83,7 @@ const Home: NextPage<Props> = (props) => {
             if (!event) return;
             setTargetValue(event);
           }}
-          data={_targets}
+          data={targets}
         />
       </form>
       <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
@@ -120,7 +120,10 @@ const Home: NextPage<Props> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const data = await client.getList<Post>({ endpoint: 'post' });
+  const data = await client.getList<Post>({
+    endpoint: 'post',
+    queries: { fields: 'id,title,caption,target,done', offset: 0, limit: 100 },
+  });
   // .then((res) => console.log(res))
   // .catch((err) => console.log(err));
 
