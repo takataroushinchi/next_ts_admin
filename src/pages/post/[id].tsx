@@ -5,15 +5,10 @@ import { client } from 'src/lib/client';
 import MicroCMSImage from 'src/components/ui/MicroCMSImage';
 import { Post } from 'src/types/post';
 import { MarkdownField } from 'src/components/ui/MarkdownField';
-import { ReactChild, ReactFragment, ReactPortal, Key } from 'react';
 
 type Props = Post & MicroCMSContentId & MicroCMSDate;
 
 const PostId: NextPage<Props> = (props) => {
-  const _topic = Object.keys(props.topic).map((key) => {
-    return { [key]: props.topic[key as keyof typeof props.topic] };
-  });
-
   return (
     <div>
       <h1>{props.title}</h1>
@@ -28,7 +23,7 @@ const PostId: NextPage<Props> = (props) => {
         dangerouslySetInnerHTML={{ __html: props.body }}
       />
       <div>
-        {_topic?.map((topic, id) => (
+        {props.topic?.map((topic, id) => (
           <div key={id}>
             {topic.fieldId === 'tech' && (
               <div className="flex flex-wrap items-center justify-between bg-indigo-900 p-6">
@@ -42,7 +37,7 @@ const PostId: NextPage<Props> = (props) => {
                 <p className="mr-6 flex-shrink-0 text-white">{topic.title}</p>
               </div>
             )}
-            {/* <div>
+            <div>
               {topic.body.map((body, index) => {
                 return body.fieldId === 'richeditor' ? (
                   <div
@@ -67,7 +62,7 @@ const PostId: NextPage<Props> = (props) => {
                   </div>
                 ) : null;
               })}
-            </div> */}
+            </div>
           </div>
         ))}
       </div>
