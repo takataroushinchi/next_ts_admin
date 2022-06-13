@@ -21,7 +21,7 @@ const Home: NextPage<Props> = (props) => {
     }
   });
   targets.sort().reverse().unshift('-');
-  const _targets: string[] = [...new Set(targets)];
+  const _targets = Array.from(new Set(targets));
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
@@ -77,7 +77,14 @@ const Home: NextPage<Props> = (props) => {
           checked={excludeDone}
           onChange={(event) => setExcludeDone(event.currentTarget.checked)}
         />
-        <Select value={targetValue} onChange={setTargetValue} data={_targets} />
+        <Select
+          value={targetValue}
+          onChange={(event) => {
+            if (!event) return;
+            setTargetValue(event);
+          }}
+          data={_targets}
+        />
       </form>
       <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
