@@ -25,6 +25,7 @@ export type Post = {
   title: string;
   caption: string;
   body: string;
+  target: string[];
   done: boolean;
   topic: Topic;
   createAt: string;

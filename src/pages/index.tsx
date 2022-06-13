@@ -1,4 +1,4 @@
-import { Switch } from '@mantine/core';
+import { Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
@@ -12,11 +12,29 @@ type Props = MicroCMSListResponse<Post>;
 const Home: NextPage<Props> = (props) => {
   const [search, setSearch] = useState<MicroCMSListResponse<Post>>();
   const [excludeDone, setExcludeDone] = useState(false);
+  const [targetValue, setTargetValue] = useState('-');
+
+  const targets: string[] = [];
+  props.contents.forEach((item) => {
+    if (item.target.length !== 0) {
+      targets.push(item.target[0]);
+    }
+  });
+  targets.sort().reverse().unshift('-');
+  const _targets: string[] = [...new Set(targets)];
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
     const q = event.currentTarget.query.value;
-    const filters = excludeDone ? 'done[equals]false' : '';
+    let filters = excludeDone ? 'done[equals]false' : '';
+    if (targetValue !== '-') {
+      filters =
+        filters === ''
+          ? `target[contains]${targetValue}`
+          : `${filters}[and]target[contains]${targetValue}`;
+    }
+
+    // [and]target[contains]202206
 
     const data = await fetch('/api/search', {
       method: 'POST',
@@ -30,6 +48,7 @@ const Home: NextPage<Props> = (props) => {
   const handleClick: ComponentProps<'button'>['onClick'] = () => {
     setSearch(undefined);
     setExcludeDone(false);
+    setTargetValue('-');
   };
 
   const contents = search ? search.contents : props.contents;
@@ -58,6 +77,7 @@ const Home: NextPage<Props> = (props) => {
           checked={excludeDone}
           onChange={(event) => setExcludeDone(event.currentTarget.checked)}
         />
+        <Select value={targetValue} onChange={setTargetValue} data={_targets} />
       </form>
       <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
@@ -72,6 +92,11 @@ const Home: NextPage<Props> = (props) => {
                   <p className="text-sm text-slate-500 group-hover:text-white">
                     {content.caption}
                   </p>
+                  {content.target && (
+                    <p className="text-sm font-semibold text-slate-500 group-hover:text-white">
+                      ターゲット：{content.target[0]}
+                    </p>
+                  )}
                   {content.done && (
                     <p className="text-sm font-semibold text-slate-500 group-hover:text-white">
                       完了
