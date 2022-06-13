@@ -14,14 +14,14 @@ const Home: NextPage<Props> = (props) => {
   const [excludeDone, setExcludeDone] = useState(false);
   const [targetValue, setTargetValue] = useState('-');
 
-  const targets: string[] = [];
+  const targetList: string[] = [];
   props.contents.forEach((item) => {
     if (item.target.length !== 0) {
-      targets.push(item.target[0]);
+      targetList.push(item.target[0]);
     }
   });
-  targets.sort().reverse().unshift('-');
-  // const _targets = Array.from(new Set(targets));
+  targetList.sort().reverse().unshift('-');
+  const targets = Array.from(new Set(targetList));
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
