@@ -1,1 +1,4 @@
 /* global styles */
+:root {
+  font-feature-settings: 'palt' 1;
+}

@@ -1,3 +1,4 @@
+import 'src/styles/globals.css';
 import 'src/lib/tailwind.css';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
