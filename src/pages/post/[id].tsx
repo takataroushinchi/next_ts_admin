@@ -12,10 +12,11 @@ const PostId: NextPage<Props> = (props) => {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between bg-gray-600 p-6">
-        <h2 className="mr-6 flex-shrink-0 font-semibold text-white">
-          {props.title}
-        </h2>
-        <time className="flex-shrink-0 text-white" dateTime={props.publishedAt}>
+        <h2 className="mr-6 flex-1 font-semibold text-white">{props.title}</h2>
+        <time
+          className="flex-shrink-0 text-sm text-white"
+          dateTime={props.publishedAt}
+        >
           {dayjs(props.publishedAt).format('YYYY年MM月DD日')}
         </time>
       </div>
@@ -38,14 +39,18 @@ const PostId: NextPage<Props> = (props) => {
           <div key={id}>
             {topic.fieldId === 'tech' && (
               <div className="my-2 flex flex-wrap items-center justify-between bg-gray-500 p-4">
-                <h3 className="mr-6 flex-shrink-0 text-white">技術</h3>
-                <p className="flex-shrink-0 text-white">{topic.title}</p>
+                <h3 className="mr-6 flex-1 text-white">技術</h3>
+                <p className="flex-shrink-0 text-sm text-white">
+                  {topic.title}
+                </p>
               </div>
             )}
             {topic.fieldId === 'note' && (
               <div className="my-2 flex flex-wrap items-center justify-between bg-gray-500 p-4">
-                <h3 className="mr-6 flex-shrink-0 text-white">備考</h3>
-                <p className="flex-shrink-0 text-white">{topic.title}</p>
+                <h3 className="mr-6 flex-1 text-white">備考</h3>
+                <p className="flex-shrink-0 text-sm text-white">
+                  {topic.title}
+                </p>
               </div>
             )}
             <div className="rounded-lg border p-8">
