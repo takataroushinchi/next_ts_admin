@@ -26,6 +26,7 @@ const Home: NextPage<Props> = (props) => {
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
     const q = event.currentTarget.query.value;
+    // console.log(event.currentTarget.value);
     let filters = excludeDone ? 'done[equals]false' : '';
     if (targetValue !== '-') {
       filters =
@@ -58,9 +59,16 @@ const Home: NextPage<Props> = (props) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="flex gap-x-2">
-          <Input name="query" className="px-2" placeholder="キーワードを入力" />
+          <Input
+            type="search"
+            name="query"
+            className="px-2"
+            placeholder="キーワードを入力"
+          />
           <Select
             value={targetValue}
+            name="target"
+            className="w-24"
             onChange={(event) => {
               if (!event) return;
               setTargetValue(event);
@@ -70,25 +78,28 @@ const Home: NextPage<Props> = (props) => {
           <Button
             type="submit"
             color="gray"
-            className="border border-black px-2"
+            className="hover:enabled:bg-sky-400 border border-sky-600 bg-sky-600 px-2 disabled:opacity-75"
           >
             検索
           </Button>
           <Button
             type="reset"
-            className="hover:enabled:bg-gray-400 border border-black bg-gray-600 px-2 disabled:opacity-75"
+            className="hover:enabled:bg-gray-400 border border-gray-600 bg-gray-600 px-2 disabled:opacity-75"
             onClick={handleClick}
           >
             リセット
           </Button>
           <Switch
             label="完了を除く"
+            className="text-xs"
             checked={excludeDone}
             onChange={(event) => setExcludeDone(event.currentTarget.checked)}
           />
         </div>
       </form>
-      <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
+      <p className="text-xm p-2">{`${
+        search ? '検索結果' : '記事の総数'
+      }：${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
         {contents.map((content) => {
           return (
