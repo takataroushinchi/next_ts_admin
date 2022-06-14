@@ -6,6 +6,7 @@ import { ComponentProps, useState } from 'react';
 import { client } from 'src/lib/client';
 import { Button } from 'src/lib/mantine';
 import { Post } from 'src/types/post';
+import { Button as MantineButton } from '@mantine/core';
 
 type Props = MicroCMSListResponse<Post>;
 
@@ -90,8 +91,14 @@ const Home: NextPage<Props> = (props) => {
             リセット
           </Button>
           <Switch
-            label="完了を除く"
-            className="text-xs"
+            size="sm"
+            label="完了除外"
+            onLabel=""
+            offLabel=""
+            classNames={{
+              label: 'absolute -bottom-2 text-[10px] px-0 whitespace-nowrap',
+            }}
+            className="relative -top-2 left-1"
             checked={excludeDone}
             onChange={(event) => setExcludeDone(event.currentTarget.checked)}
           />
@@ -99,7 +106,7 @@ const Home: NextPage<Props> = (props) => {
       </form>
       <p className="text-xm p-2">{`${
         search ? '検索結果' : '記事の総数'
-      }：${totalCount}`}</p>
+      }:${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
         {contents.map((content) => {
           return (
