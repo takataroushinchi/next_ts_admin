@@ -1,4 +1,4 @@
-import { Select, Switch } from '@mantine/core';
+import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
@@ -56,35 +56,37 @@ const Home: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <form className="flex gap-x-2" onSubmit={handleSubmit}>
-        <input
-          type="search"
-          name="query"
-          className="border border-black px-2"
-        />
-        <Button type="submit" color="gray" className="border border-black px-2">
-          検索
-        </Button>
-        <button
-          type="reset"
-          className="hover:enabled:bg-gray-50 border border-black bg-gray-200 px-2 disabled:opacity-75"
-          onClick={handleClick}
-        >
-          リセット
-        </button>
-        <Switch
-          label="完了を除く"
-          checked={excludeDone}
-          onChange={(event) => setExcludeDone(event.currentTarget.checked)}
-        />
-        <Select
-          value={targetValue}
-          onChange={(event) => {
-            if (!event) return;
-            setTargetValue(event);
-          }}
-          data={targets}
-        />
+      <form onSubmit={handleSubmit}>
+        <div className="flex gap-x-2">
+          <Input name="query" className="px-2" placeholder="キーワードを入力" />
+          <Select
+            value={targetValue}
+            onChange={(event) => {
+              if (!event) return;
+              setTargetValue(event);
+            }}
+            data={targets}
+          />
+          <Button
+            type="submit"
+            color="gray"
+            className="border border-black px-2"
+          >
+            検索
+          </Button>
+          <Button
+            type="reset"
+            className="hover:enabled:bg-gray-400 border border-black bg-gray-600 px-2 disabled:opacity-75"
+            onClick={handleClick}
+          >
+            リセット
+          </Button>
+          <Switch
+            label="完了を除く"
+            checked={excludeDone}
+            onChange={(event) => setExcludeDone(event.currentTarget.checked)}
+          />
+        </div>
       </form>
       <p>{`${search ? '検索結果' : '記事の総数'}：${totalCount}`}</p>
       <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
