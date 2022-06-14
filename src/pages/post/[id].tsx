@@ -12,7 +12,9 @@ const PostId: NextPage<Props> = (props) => {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between bg-gray-600 p-6">
-        <h2 className="mr-6 flex-shrink-0 text-white">{props.title}</h2>
+        <h2 className="mr-6 flex-shrink-0 font-semibold text-white">
+          {props.title}
+        </h2>
         <time className="flex-shrink-0 text-white" dateTime={props.publishedAt}>
           {dayjs(props.publishedAt).format('YYYY年MM月DD日')}
         </time>
@@ -28,7 +30,7 @@ const PostId: NextPage<Props> = (props) => {
         )}
       </div>
       <div
-        className="prose border p-8 lg:prose-sm"
+        className="prose rounded-lg border p-8"
         dangerouslySetInnerHTML={{ __html: props.body }}
       />
       <div>
@@ -46,7 +48,7 @@ const PostId: NextPage<Props> = (props) => {
                 <p className="flex-shrink-0 text-white">{topic.title}</p>
               </div>
             )}
-            <div className="border p-8">
+            <div className="rounded-lg border p-8">
               {topic.body.map((body, index) => {
                 return body.fieldId === 'richeditor' ? (
                   <div

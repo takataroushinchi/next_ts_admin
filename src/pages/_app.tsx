@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       emotionOptions={{ key: 'mantine', prepend: false }}
     >
       <div className="mx-auto max-w-full px-8">
-        <header className="flex flex-wrap items-center justify-between bg-indigo-900 p-6">
-          <div className="mr-6 flex flex-shrink-0 items-center text-white">
+        <header className="flex flex-wrap items-center justify-between bg-gray-50 p-6 shadow-md">
+          <div className="mr-6 flex flex-shrink-0 items-center text-slate-900">
             <Link href="/">
               <a className="py-8 text-xl font-bold">デザイン管理画面</a>
             </Link>

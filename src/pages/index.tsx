@@ -105,7 +105,7 @@ const Home: NextPage<Props> = (props) => {
           return (
             <li key={content.id}>
               <Link href={`/post/${content.id}`}>
-                <a className="group mx-auto block space-y-3 rounded-lg bg-white p-6 shadow-lg ring-1 ring-slate-900/5 hover:bg-sky-700 hover:ring-sky-500">
+                <a className="group mx-auto block space-y-3 rounded-lg bg-white p-6 shadow ring-1 ring-slate-900/5 hover:bg-sky-700 hover:ring-sky-500">
                   <p className="text-sm font-semibold text-slate-900 group-hover:text-white">
                     {content.title}
                   </p>
