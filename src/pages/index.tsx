@@ -26,7 +26,7 @@ const Home: NextPage<Props> = (props) => {
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
     const q = event.currentTarget.query.value;
-    // console.log(event.currentTarget.value);
+    // console.log(event.currentTarget.target.value);
     let filters = excludeDone ? 'done[equals]false' : '';
     if (targetValue !== '-') {
       filters =
