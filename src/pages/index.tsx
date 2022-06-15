@@ -1,3 +1,4 @@
+import { Search } from '@icon-park/react';
 import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
@@ -6,7 +7,6 @@ import { ComponentProps, useState } from 'react';
 import { client } from 'src/lib/client';
 import { Button } from 'src/lib/mantine';
 import { Post } from 'src/types/post';
-import { Button as MantineButton } from '@mantine/core';
 
 type Props = MicroCMSListResponse<Post>;
 
@@ -61,9 +61,10 @@ const Home: NextPage<Props> = (props) => {
       <form onSubmit={handleSubmit}>
         <div className="flex gap-x-2">
           <Input
+            icon={<Search theme="outline" size="16" fill="#999" />}
             type="search"
             name="query"
-            className="px-2"
+            className="pr-2"
             placeholder="キーワードを入力"
           />
           <Select

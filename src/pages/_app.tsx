@@ -1,5 +1,6 @@
 import 'src/styles/globals.css';
 import 'src/lib/tailwind.css';
+import '@icon-park/react/styles/index.css';
 import type { AppProps } from 'next/app';
 import Link from 'next/link';
 import { MantineProvider } from '@mantine/core';
