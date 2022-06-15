@@ -62,7 +62,7 @@ const PostId: NextPage<Props> = (props) => {
                     dangerouslySetInnerHTML={{ __html: body.richText }}
                   />
                 ) : body.fieldId === 'markdown' ? (
-                  <div key={index}>
+                  <div key={index} className="prose lg:prose-sm">
                     <MarkdownField text={body.markdownText} />
                   </div>
                 ) : body.fieldId === 'richlink' ? (
