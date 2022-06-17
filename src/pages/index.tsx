@@ -28,7 +28,8 @@ const Home: NextPage<Props> = (props) => {
   const [cookies, setCookie] = useCookies([`done#cookie`]);
 
   useEffect(() => {
-    if (cookies[`done#cookie`]) {
+    console.dir(cookies[`done#cookie`]);
+    if (cookies[`done#cookie`] === 'true') {
       setExcludeDone(true);
     } else {
       setExcludeDone(false);
