@@ -1,7 +1,7 @@
 import { Search } from '@icon-park/react';
 import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -11,7 +11,7 @@ import { Post } from 'src/types/post';
 
 type Props = MicroCMSListResponse<Post>;
 
-const Home: NextPage<Props> = (props) => {
+const Test: NextPage<Props> = (props) => {
   const [search, setSearch] = useState<MicroCMSListResponse<Post>>();
   const [excludeDone, setExcludeDone] = useState(false);
   const [targetValue, setTargetValue] = useState('-');
@@ -157,17 +157,24 @@ const Home: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const filters =
+    context.req.cookies['done#cookie'] === 'on' ? 'done[equals]false' : '';
   const data = await client.getList<Post>({
     endpoint: 'post',
-    queries: { fields: 'id,title,caption,target,done', offset: 0, limit: 100 },
+    queries: {
+      fields: 'id,title,caption,target,done',
+      offset: 0,
+      limit: 100,
+      filters,
+    },
   });
-  // .then((res) => console.log(res))
-  // .catch((err) => console.log(err));
 
   return {
     props: data,
   };
 };
 
-export default Home;
+export default Test;
