@@ -17,6 +17,7 @@
     "microcms-js-sdk": "^2.0.0",
     "next": "12.1.7-canary.33",
     "react": "17.0.2",
+    "react-cookie": "^4.1.1",
     "react-dom": "17.0.2",
     "react-markdown": "^8.0.3"
   },

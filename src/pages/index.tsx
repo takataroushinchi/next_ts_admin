@@ -3,7 +3,8 @@ import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
-import { ComponentProps, useState } from 'react';
+import { ComponentProps, useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { client } from 'src/lib/client';
 import { Button } from 'src/lib/mantine';
 import { Post } from 'src/types/post';
@@ -23,6 +24,16 @@ const Home: NextPage<Props> = (props) => {
   });
   targetList.sort().reverse().unshift('-');
   const targets = Array.from(new Set(targetList));
+
+  const [cookies, setCookie] = useCookies([`done#cookie`]);
+
+  useEffect(() => {
+    if (cookies[`done#cookie`]) {
+      setExcludeDone(true);
+    } else {
+      setExcludeDone(false);
+    }
+  }, []);
 
   const handleSubmit: ComponentProps<'form'>['onSubmit'] = async (event) => {
     event.preventDefault();
@@ -47,10 +58,16 @@ const Home: NextPage<Props> = (props) => {
     setSearch(json);
   };
 
-  const handleClick: ComponentProps<'button'>['onClick'] = () => {
+  const handleReset: ComponentProps<'button'>['onClick'] = () => {
     setSearch(undefined);
     setExcludeDone(false);
+    setCookie(`done#cookie`, false);
     setTargetValue('-');
+  };
+
+  const handleSwitch = (checked: boolean) => {
+    setExcludeDone(checked);
+    checked ? setCookie(`done#cookie`, true) : setCookie(`done#cookie`, false);
   };
 
   const contents = search ? search.contents : props.contents;
@@ -87,7 +104,7 @@ const Home: NextPage<Props> = (props) => {
           <Button
             type="reset"
             className="hover:enabled:bg-gray-400 border border-gray-600 bg-gray-600 px-2 disabled:opacity-75"
-            onClick={handleClick}
+            onClick={handleReset}
           >
             リセット
           </Button>
@@ -101,7 +118,7 @@ const Home: NextPage<Props> = (props) => {
             }}
             className="relative -top-2 left-1"
             checked={excludeDone}
-            onChange={(event) => setExcludeDone(event.currentTarget.checked)}
+            onChange={(event) => handleSwitch(event.currentTarget.checked)}
           />
         </div>
       </form>
