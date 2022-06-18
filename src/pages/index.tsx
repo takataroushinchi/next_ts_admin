@@ -2,6 +2,7 @@ import { Search } from '@icon-park/react';
 import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetStaticProps, NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -74,7 +75,10 @@ const Home: NextPage<Props> = (props) => {
   const totalCount = search ? search.totalCount : props.totalCount;
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>デザイン管理画面</title>
+      </Head>
       <form onSubmit={handleSubmit}>
         <div className="flex gap-x-2">
           <Input
@@ -153,7 +157,7 @@ const Home: NextPage<Props> = (props) => {
           );
         })}
       </ul>
-    </div>
+    </>
   );
 };
 

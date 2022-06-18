@@ -5,12 +5,16 @@ import { client } from 'src/lib/client';
 import MicroCMSImage from 'src/components/ui/MicroCMSImage';
 import { Post } from 'src/types/post';
 import { MarkdownField } from 'src/components/ui/MarkdownField';
+import Head from 'next/head';
 
 type Props = Post & MicroCMSContentId & MicroCMSDate;
 
 const PostId: NextPage<Props> = (props) => {
   return (
-    <div>
+    <>
+      <Head>
+        <title>{props.title}</title>
+      </Head>
       <div className="flex flex-wrap items-center justify-between bg-gray-600 p-6">
         <h2 className="mr-6 flex-1 font-semibold text-white">{props.title}</h2>
         <time
@@ -82,7 +86,7 @@ const PostId: NextPage<Props> = (props) => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
