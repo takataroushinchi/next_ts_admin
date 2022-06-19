@@ -13,12 +13,15 @@ type Props = Post & MicroCMSContentId & MicroCMSDate;
 
 const PostId: NextPage<Props> = (props) => {
   const items = [
-    { title: 'Top', href: '/' },
+    { title: 'トップ', href: '/' },
+    { title: '案件リスト', href: '/list' },
     { title: `${props.title}`, href: '' },
   ].map((item, index) =>
     item.href !== '' ? (
       <Link href={item.href} key={index}>
-        <a>{item.title}</a>
+        <a className="mantine-1iqrsug mantine-Breadcrumbs-breadcrumb">
+          {item.title}
+        </a>
       </Link>
     ) : (
       <a key={index}>{item.title}</a>
