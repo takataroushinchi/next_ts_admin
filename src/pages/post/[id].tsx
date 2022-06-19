@@ -111,12 +111,16 @@ const PostId: NextPage<Props> = (props) => {
 };
 
 export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
-  const data = await client.getList({ endpoint: 'post' });
-  const ids = data.contents.map((content) => `/post/${content.id}`);
+  // const data = await client.getList({ endpoint: 'post' });
+  // const ids = data.contents.map((content) => `/post/${content.id}`);
 
   return {
-    paths: ids,
-    fallback: false,
+    // ==SG==
+    // paths: ids,
+    // fallback: false,
+    // ==ISR==
+    paths: [],
+    fallback: 'blocking',
   };
 };
 
