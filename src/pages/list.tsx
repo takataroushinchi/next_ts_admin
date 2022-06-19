@@ -2,16 +2,18 @@ import { Search } from '@icon-park/react';
 import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
 import type { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
+import { Tab } from 'src/components/ui/Tab';
 import { client } from 'src/lib/client';
 import { Button } from 'src/lib/mantine';
 import { Post } from 'src/types/post';
 
 type Props = MicroCMSListResponse<Post>;
 
-const Test: NextPage<Props> = (props) => {
+const List: NextPage<Props> = (props) => {
   const [search, setSearch] = useState<MicroCMSListResponse<Post>>();
   const [excludeDone, setExcludeDone] = useState(false);
   const [targetValue, setTargetValue] = useState('-');
@@ -74,7 +76,11 @@ const Test: NextPage<Props> = (props) => {
   const totalCount = search ? search.totalCount : props.totalCount;
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>案件リスト</title>
+      </Head>
+      <Tab current={'list'} />
       <form onSubmit={handleSubmit}>
         <div className="flex gap-x-2">
           <Input
@@ -153,7 +159,7 @@ const Test: NextPage<Props> = (props) => {
           );
         })}
       </ul>
-    </div>
+    </>
   );
 };
 
@@ -177,4 +183,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   };
 };
 
-export default Test;
+export default List;

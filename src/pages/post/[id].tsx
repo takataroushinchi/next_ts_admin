@@ -6,15 +6,32 @@ import MicroCMSImage from 'src/components/ui/MicroCMSImage';
 import { Post } from 'src/types/post';
 import { MarkdownField } from 'src/components/ui/MarkdownField';
 import Head from 'next/head';
+import { Breadcrumbs, Space } from '@mantine/core';
+import Link from 'next/link';
 
 type Props = Post & MicroCMSContentId & MicroCMSDate;
 
 const PostId: NextPage<Props> = (props) => {
+  const items = [
+    { title: 'Top', href: '/' },
+    { title: `${props.title}`, href: '' },
+  ].map((item, index) =>
+    item.href !== '' ? (
+      <Link href={item.href} key={index}>
+        <a>{item.title}</a>
+      </Link>
+    ) : (
+      <a key={index}>{item.title}</a>
+    )
+  );
+
   return (
     <>
       <Head>
         <title>{props.title}</title>
       </Head>
+      <Breadcrumbs separator="/">{items}</Breadcrumbs>
+      <Space h="md" />
       <div className="flex flex-wrap items-center justify-between bg-gray-600 p-6">
         <h2 className="mr-6 flex-1 font-semibold text-white">{props.title}</h2>
         <time
