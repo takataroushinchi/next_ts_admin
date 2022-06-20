@@ -6,25 +6,26 @@ import MicroCMSImage from 'src/components/ui/MicroCMSImage';
 import { Post } from 'src/types/post';
 import { MarkdownField } from 'src/components/ui/MarkdownField';
 import Head from 'next/head';
-import { Breadcrumbs, Space } from '@mantine/core';
+import { Anchor, Breadcrumbs, Space } from '@mantine/core';
 import Link from 'next/link';
+import { getPath } from 'src/lib/const/path';
 
 type Props = Post & MicroCMSContentId & MicroCMSDate;
 
 const PostId: NextPage<Props> = (props) => {
   const items = [
-    { title: 'トップ', href: '/' },
-    { title: '案件リスト', href: '/list' },
+    { title: 'トップ', href: `${getPath('INDEX')}` },
+    { title: '案件リスト', href: `${getPath('LIST')}` },
     { title: `${props.title}`, href: '' },
   ].map((item, index) =>
     item.href !== '' ? (
-      <Link href={item.href} key={index}>
-        <a className="mantine-1iqrsug mantine-Breadcrumbs-breadcrumb">
-          {item.title}
-        </a>
+      <Link href={item.href} key={index} passHref>
+        <Anchor>{item.title}</Anchor>
       </Link>
     ) : (
-      <a key={index}>{item.title}</a>
+      <Anchor underline={false} color="dimmed" weight="bold" key={index}>
+        {item.title}
+      </Anchor>
     )
   );
 

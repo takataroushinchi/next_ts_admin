@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getPath } from 'src/lib/const/path';
 
 type Props = {
   current: string;
@@ -10,7 +11,7 @@ export const Tab: React.VFC<Props> = ({ current }) => {
       <a className="flex-1 space-y-4 rounded-sm border-b-2 border-slate-600 bg-sky-700 p-4">
         <p className="text-sm font-semibold text-slate-200">トップ</p>
       </a>
-      <Link href={`/list`}>
+      <Link href={`${getPath('LIST')}`}>
         <a className="group flex-1 space-y-4 rounded-sm bg-slate-50 p-4 shadow ring-1 ring-slate-900/5 hover:bg-sky-600 hover:ring-sky-600">
           <p className="group-hover:text-bg-sky-600 text-sm font-semibold text-sky-600 group-hover:text-slate-50">
             案件リスト
@@ -20,7 +21,7 @@ export const Tab: React.VFC<Props> = ({ current }) => {
     </nav>
   ) : (
     <nav className="flex gap-x-2 pb-8">
-      <Link href={`/`}>
+      <Link href={`${getPath('INDEX')}`}>
         <a className="group flex-1 space-y-4 rounded-sm bg-slate-50 p-4 shadow ring-1 ring-slate-900/5 hover:bg-sky-600 hover:ring-sky-600">
           <p className="group-hover:text-bg-sky-600 text-sm font-semibold text-sky-600 group-hover:text-slate-50">
             トップ
