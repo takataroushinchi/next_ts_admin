@@ -17,7 +17,7 @@ const Home: NextPage<Props> = (props) => {
       <Head>
         <title>デザイン管理画面</title>
       </Head>
-      <Tab current={'top'} />
+      <Tab />
       <section className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
         {contents.map((content) => {
           return (

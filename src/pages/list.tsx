@@ -81,7 +81,7 @@ const List: NextPage<Props> = (props) => {
       <Head>
         <title>案件リスト</title>
       </Head>
-      <Tab current={'list'} />
+      <Tab />
       <form onSubmit={handleSubmit}>
         <div className="flex gap-x-2">
           <Input
