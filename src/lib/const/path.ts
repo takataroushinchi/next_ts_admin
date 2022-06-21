@@ -1,6 +1,7 @@
 const PATH = {
   INDEX: '/',
   LIST: '/list',
+  POST: '/post/[slug]',
   NOTIFICATION: '/notification',
   SETTINGS: '/settings',
   SIGN_IN: '/sign-in',

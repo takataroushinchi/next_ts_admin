@@ -8,6 +8,7 @@ import { ComponentProps, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Tab } from 'src/components/ui/Tab';
 import { client } from 'src/lib/client';
+import { getPath } from 'src/lib/const/path';
 import { Button } from 'src/lib/mantine';
 import { Post } from 'src/types/post';
 
@@ -135,7 +136,7 @@ const List: NextPage<Props> = (props) => {
         {contents.map((content) => {
           return (
             <li key={content.id}>
-              <Link href={`/post/${content.id}`}>
+              <Link href={`${getPath('POST', content.id)}`}>
                 <a className="group mx-auto block space-y-3 rounded-lg bg-white p-6 shadow ring-1 ring-slate-900/5 hover:bg-sky-700 hover:ring-sky-500">
                   <p className="text-sm font-semibold text-slate-900 group-hover:text-white">
                     {content.title}

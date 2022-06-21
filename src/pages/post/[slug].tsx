@@ -111,9 +111,9 @@ const PostId: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
   // const data = await client.getList({ endpoint: 'post' });
-  // const ids = data.contents.map((content) => `/post/${content.id}`);
+  // const ids = data.contents.map((content) => `/post/${content.slug}`);
 
   return {
     // ==SG==
@@ -125,7 +125,7 @@ export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<Props, { id: string }> = async (
+export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (
   ctx
 ) => {
   if (!ctx.params) {
@@ -136,7 +136,7 @@ export const getStaticProps: GetStaticProps<Props, { id: string }> = async (
 
   const data = await client.getListDetail<Post>({
     endpoint: 'post',
-    contentId: ctx.params.id,
+    contentId: ctx.params.slug,
   });
 
   return {
