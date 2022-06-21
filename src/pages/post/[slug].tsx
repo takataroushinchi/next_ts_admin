@@ -111,15 +111,15 @@ const PostId: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   // const data = await client.getList({ endpoint: 'post' });
-  // const ids = data.contents.map((content) => `/post/${content.slug}`);
+  // const ids = data.contents.map((content) => `${getPath('POST', content.id)}`);
 
   return {
     // ==SG==
     // paths: ids,
     // fallback: false,
-    // ==ISR==
+    // // ==ISR==
     paths: [],
     fallback: 'blocking',
   };
@@ -138,6 +138,8 @@ export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (
     endpoint: 'post',
     contentId: ctx.params.slug,
   });
+  // .then((res) => console.log(res))
+  // .catch((err) => console.log(err));
 
   return {
     props: data,
