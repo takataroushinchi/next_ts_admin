@@ -3,7 +3,8 @@ module.exports = {
   swcMinify: true,
   reactStrictMode: true,
   images: {
-    loader: 'imgix',
-    path: '',
+    domains: ['images.microcms-assets.io'],
+    // loader: 'imgix',
+    // path: '',
   },
 };
