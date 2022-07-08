@@ -7,4 +7,5 @@ module.exports = {
     // loader: 'imgix',
     // path: '',
   },
+  experimental: { images: { allowFutureImage: true } },
 };

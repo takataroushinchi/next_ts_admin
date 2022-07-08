@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 
 const LayoutTest = () => {
   return (
@@ -6,7 +6,6 @@ const LayoutTest = () => {
       <Image
         src="https://picsum.photos/400/300/?random"
         alt=""
-        objectFit="cover"
         width="400"
         height="300"
         className="aspect-video w-full object-cover"
@@ -14,7 +13,6 @@ const LayoutTest = () => {
       <Image
         src="https://picsum.photos/300/400/?random"
         alt=""
-        objectFit="cover"
         width="300"
         height="400"
         className="aspect-video w-full object-cover"
@@ -22,7 +20,6 @@ const LayoutTest = () => {
       <Image
         src="https://picsum.photos/600/300/?random"
         alt=""
-        objectFit="cover"
         width="600"
         height="300"
         className="aspect-video w-full object-cover"
