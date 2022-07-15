@@ -1,7 +1,7 @@
 import { Search } from '@icon-park/react';
 import { Input, Select, Switch } from '@mantine/core';
 import { MicroCMSListResponse } from 'microcms-js-sdk';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ComponentProps, useEffect, useState } from 'react';
@@ -104,13 +104,13 @@ const List: NextPage<Props> = (props) => {
           <Button
             type="submit"
             color="gray"
-            className="hover:enabled:bg-sky-400 border border-sky-600 bg-sky-600 px-2 disabled:opacity-75"
+            className="border border-sky-600 bg-sky-600 px-2 hover:enabled:bg-sky-400 disabled:opacity-75"
           >
             検索
           </Button>
           <Button
             type="reset"
-            className="hover:enabled:bg-gray-400 border border-gray-600 bg-gray-600 px-2 disabled:opacity-75"
+            className="border border-gray-600 bg-gray-600 px-2 hover:enabled:bg-gray-400 disabled:opacity-75"
             onClick={handleReset}
           >
             リセット
@@ -132,7 +132,7 @@ const List: NextPage<Props> = (props) => {
       <p className="text-xm p-2">{`${
         search ? '検索結果' : '記事の総数'
       }:${totalCount}`}</p>
-      <ul className="[&>*]:p-4 [&>*]:bg-white [&>*]:rounded-lg [&>*]:shadow mt-4 space-y-4">
+      <ul className="mt-4 space-y-4 [&>*]:rounded-lg [&>*]:bg-white [&>*]:p-4 [&>*]:shadow">
         {contents.map((content) => {
           return (
             <li key={content.id}>
@@ -164,18 +164,18 @@ const List: NextPage<Props> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const filters =
-    context.req.cookies['done#cookie'] === 'on' ? 'done[equals]false' : '';
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  // export const getServerSideProps: GetServerSideProps<Props> = async (
+  // context
+  // ) => {
+  // const filters = context.req.cookies['done#cookie'] === 'on' ? 'done[equals]false' : '';
   const data = await client.getList<Post>({
     endpoint: 'post',
     queries: {
       fields: 'id,title,caption,target,done',
       offset: 0,
       limit: 100,
-      filters,
+      // filters,
     },
   });
 
