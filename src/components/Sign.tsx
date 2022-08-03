@@ -3,7 +3,7 @@ import useStore from 'src/store';
 import { Button } from 'src/lib/mantine';
 
 export const Sign = () => {
-  const email = useStore((state) => state.user);
+  const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
 
   const signOut = () => {
@@ -14,7 +14,7 @@ export const Sign = () => {
   return (
     <div className="bg-gray-50 p-6">
       <div className="flex items-center text-slate-900">
-        <p className="px-2">{email}</p>
+        <p className="px-2">{user}</p>
         <Button
           type="button"
           color="gray"
