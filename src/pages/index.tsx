@@ -17,9 +17,9 @@ type Props = MicroCMSListResponse<Blog>;
 
 const Home: NextPage<Props> = (props) => {
   const contents = props.contents;
-
   const session = useStore((state) => state.session);
   const setSession = useStore((state) => state.setSession);
+
   useEffect(() => {
     setSession(supabase.auth.session());
     supabase.auth.onAuthStateChange((_event, session) => {
